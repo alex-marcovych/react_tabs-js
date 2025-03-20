@@ -2,15 +2,13 @@ import React from 'react';
 import cn from 'classnames';
 
 export const Tabs = ({ tabs, activeTabId, onTabSelected }) => {
-  const activeTab = tabs.find(tab => tab.id === activeTabId) || tabs[0];
-
   return (
     <div data-cy="TabsComponent">
       <div className="tabs is-boxed">
         <ul>
           {tabs.map(tab => (
             <li
-              className={cn({ 'is-active': tab.id === activeTab.id })}
+              className={cn({ 'is-active': tab.id === activeTabId })}
               data-cy="Tab"
               key={tab.id}
             >
@@ -19,7 +17,7 @@ export const Tabs = ({ tabs, activeTabId, onTabSelected }) => {
                 data-cy="TabLink"
                 onClick={event => {
                   event.preventDefault();
-                  if (tab.id !== activeTab.id) {
+                  if (tab.id !== activeTabId) {
                     onTabSelected(tab.id);
                   }
                 }}
@@ -31,7 +29,7 @@ export const Tabs = ({ tabs, activeTabId, onTabSelected }) => {
         </ul>
       </div>
       <div className="block" data-cy="TabContent">
-        {activeTab.content}
+        {tabs.find(tab => tab.id === activeTabId).content}
       </div>
     </div>
   );
